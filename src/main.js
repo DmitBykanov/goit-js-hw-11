@@ -1,18 +1,17 @@
-import { getImagesByQuery } from './js/pixabay-api.js.js';
+import { getImagesByQuery } from './js/pixabay-api.js';
 import { createGallery, clearGallery, showLoader, hideLoader } from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import 'loaders.css/loaders.min.css';
 
-const formEl = document.querySelector('.form');
-const inputEl = formEl.querySelector('input');
+const formItem = document.querySelector('.form');
+const inputItem = formItem.querySelector('input');
 
-formEl.addEventListener('submit', onSearch);
+formItem.addEventListener('submit', onSearch);
 
-function onSearch(evt) {
-  evt.preventDefault();
-  const query = inputEl.value.trim();
-
+function onSearch(event) {
+  event.preventDefault();
+  const query = inputItem.value.trim();
   if (query === '') {
     iziToast.warning({
       title: 'Warning',
@@ -28,7 +27,6 @@ function onSearch(evt) {
   getImagesByQuery(query)
     .then(data => {
       hideLoader();
-
       if (!data || !Array.isArray(data.hits) || data.hits.length === 0) {
         iziToast.error({
           title: 'No results',
@@ -37,11 +35,8 @@ function onSearch(evt) {
         });
         return;
       }
-
       createGallery(data.hits);
-
-      inputEl.value = '';
-
+      inputItem.value = '';
     })
     .catch(error => {
       hideLoader();
@@ -51,5 +46,4 @@ function onSearch(evt) {
         position: 'topRight',
       });
     });
-
   }
