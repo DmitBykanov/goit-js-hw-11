@@ -10,7 +10,6 @@ export function getImagesByQuery(query) {
       q: query,
       image_type: 'photo',
       orientation: 'horizontal',
-      per_page:40,
       safesearch: true,
     },
   }).then(response => response.data);
