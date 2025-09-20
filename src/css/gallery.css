@@ -20,6 +20,13 @@ color: #808080;
 box-sizing: border-box;
 }
 
+.input-error {
+  background-color:#f28a8a;
+}
+.input-error::placeholder {
+  color: #fff;
+}
+
 .form input:hover{
   border-color: #000;
 }
