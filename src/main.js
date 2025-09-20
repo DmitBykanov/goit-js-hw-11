@@ -25,7 +25,6 @@ function onSearch(event) {
       input.removeEventListener('focus', removeErrorOnClick);
     };
     input.addEventListener('focus', removeErrorOnClick);
-
     return;
   }
 
