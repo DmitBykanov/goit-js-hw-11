@@ -4,14 +4,14 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import 'loaders.css/loaders.min.css';
 
-const formItem = document.querySelector('.form');
-const inputItem = formItem.querySelector('input');
+const form = document.querySelector('.form');
+const input = form.querySelector('input');
 
-formItem.addEventListener('submit', onSearch);
+form.addEventListener('submit', onSearch);
 
 function onSearch(event) {
   event.preventDefault();
-  const query = inputItem.value.trim();
+  const query = input.value.trim();
   if (query === '') {
     iziToast.warning({
       title: 'Warning',
@@ -24,10 +24,9 @@ function onSearch(event) {
   clearGallery();
   showLoader();
 
-  getImagesByQuery(query)
+  getImagesByQuery(query.toLowerCase())
     .then(data => {
-      hideLoader();
-      if (!data || !Array.isArray(data.hits) || data.hits.length === 0) {
+      if (!data.hits || data.hits.length === 0) {
         iziToast.error({
           title: 'No results',
           message: 'Sorry, there are no images matching your search query. Please try again!',
@@ -36,14 +35,16 @@ function onSearch(event) {
         return;
       }
       createGallery(data.hits);
-      inputItem.value = '';
     })
     .catch(error => {
-      hideLoader();
       iziToast.error({
         title: 'Error',
         message: 'Something went wrong while fetching images. Please try again later.',
         position: 'topRight',
       });
+    })
+    .finally(() => {
+      hideLoader();
+      input.value = '';
     });
-  }
+}

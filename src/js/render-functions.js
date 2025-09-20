@@ -1,15 +1,15 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const galleryItem = document.querySelector('.gallery');
-const loaderItem = document.getElementById('loader');
+const gallery = document.querySelector('.gallery');
+const loader = document.getElementById('loader');
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
 
 export function createGallery(images) {
-  if (!Array.isArray(images) || images.length === 0) return;
+  if (images.length === 0) return;
   const markup = images.map(img => {
     const {
       webformatURL,
@@ -35,22 +35,22 @@ export function createGallery(images) {
     `;
   }).join('');
 
-  galleryItem.innerHTML = markup;
+  gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
 }
 
 export function clearGallery() {
-  galleryItem.innerHTML = '';
+  gallery.innerHTML = '';
 }
 
 export function showLoader() {
-  if (!loaderItem) return;
-  loaderItem.classList.remove('visually-hidden');
-  loaderItem.classList.add('is-loading');
+  if (!loader) return;
+  loader.classList.remove('visually-hidden');
+  loader.classList.add('is-loading');
 }
 
 export function hideLoader() {
-  if (!loaderItem) return;
-  loaderItem.classList.add('visually-hidden');
-  loaderItem.classList.remove('is-loading');
+  if (!loader) return;
+  loader.classList.add('visually-hidden');
+  loader.classList.remove('is-loading');
 }
