@@ -23,6 +23,7 @@ box-sizing: border-box;
 .input-error {
   background-color:#f28a8a;
 }
+
 .input-error::placeholder {
   color: #fff;
 }

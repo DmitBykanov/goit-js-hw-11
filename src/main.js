@@ -13,18 +13,19 @@ function onSearch(event) {
   event.preventDefault();
   const query = input.value.trim();
   if (query === '') {
-    input.classList.add('input-error'),
+   input.classList.add('input-error');
+
     iziToast.warning({
       title: 'Warning',
       message: 'Please enter a search term.',
       position: 'topRight',
     });
 
-    const removeErrorOnClick = () => {
+    const removeInputError =() => {
       input.classList.remove('input-error');
-      input.removeEventListener('focus', removeErrorOnClick);
-    };
-    input.addEventListener('focus', removeErrorOnClick);
+      input.removeEventListener('focus', removeInputError);
+    }
+    input.addEventListener('focus', removeInputError);
     return;
   }
 
